@@ -11,10 +11,10 @@ function App() {
 <div className="container">
   <div className="row">
     <div className="col-6">
-      
+      column number 1 <span><i className="fas fa-home"> </i></span>
     </div>
     <div className="col-6">
-      
+      column number 2
     </div>
 
   </div>
