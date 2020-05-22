@@ -3,24 +3,30 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+// Custom created components for this project
+import Cart from "./components/Cart";
+import Default from "./components/Default";
+import Navbar from "./components/Navbar";
+import Details from "./components/Details";
+import ProductList from "./components/ProductList";
+
+
+
+
 function App() {
   
 
   return (
 
-<div className="container">
-  <div className="row">
-    <div className="col-6">
-      column number 1 <span><i className="fas fa-home"> </i></span>
-    </div>
-    <div className="col-6">
-      column number 2
-    </div>
-
-  </div>
-
-
-</div>
+    <React.Fragment>
+      
+      <Navbar/>
+      <ProductList> </ProductList>
+      <Details></Details>
+      <Cart></Cart>
+      <Default></Default>
+      
+    </React.Fragment>
 
   );
 }
