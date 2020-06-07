@@ -6,8 +6,9 @@ const ProductContext = React.createContext();
 class ProductProvider extends Component {
 
     state = {
-        products : storeProducts,
-        details : detailProduct
+        products : [],
+        details : detailProduct,
+        count: 7
     }
     handleDetail = () => {
         console.log("Hello from Details")
@@ -15,9 +16,30 @@ class ProductProvider extends Component {
     addToCart = () => {
         console.log('Hello from add to cart')
     }
+    print = ()=> {
+        console.log('The value of source array is',storeProducts);
+        console.log('The value of copied array is', this.state.products);
+    }
+    setProducts = () => {
+        let y = [];
+        for (let i =0 ; i < storeProducts.length; i++) {
+            let x,z;
+            x = storeProducts[i];
+            z = {...x};
+            y.push(z);
+            this.setState({products: y});
+        }
+        y[0].id = 100;
+    }
+
+    componentDidMount() {
+        this.setProducts();
+    }
 
     render() {
         return (
+            <>
+            <button onClick={this.print}>Click Me</button>
            <ProductContext.Provider value={{
                ...this.state,
                handleDetail : this.handleDetail,
@@ -26,6 +48,7 @@ class ProductProvider extends Component {
            }}>
                {this.props.children}
             </ProductContext.Provider>
+            </>
 
         )
     }

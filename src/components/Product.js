@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {ProductConsumer} from "../context";
+import PropTypes from "prop-types";
 
 export default class Product extends Component {
     render() {
@@ -13,18 +14,19 @@ export default class Product extends Component {
                 {/* image-container is a custom class */}
                   <div className="image-container p-5" onClick={()=> console.log(`hi from product`) }>
                     <Link to="/details">
-                      {/* card-image-top from bootstrap to palce image in top section of card */}
-                      <img src={img} alt="product image" className="card-img-top"/>
+                      {/* card-img-top from bootstrap to palce image in top section of card */}
+                      <img src={img} alt="product" className="card-img-top"/>
                     </Link>
-                  </div>
-                  {/* cart-btn is a custom class  */}
-                  <button className="cart-btn" disabled={inCart ? true : false} 
+                   {/* cart-btn is a custom class  */}
+                   <button className="cart-btn" disabled={inCart ? true : false} 
                   onClick={()=>console.log('Added to Cart')}> 
                     {inCart ? (<p className="text-capitalize mb-0">in Cart</p>) 
                     : (
                       <i className="fas fa-cart-plus"></i>
                       )}
                   </button>
+                  </div>
+                 
                   {/* This will be the card footer; card-footer, d-flex, and justify from bootstrap */}
                   <div className="card-footer d-flex justify-content-between">
                         {/* align from Bootstrap, used so that price stays on same line even though its font size is bigger */}
@@ -41,6 +43,19 @@ export default class Product extends Component {
         )
     }
 }
+
+// prop types setup to catch faulty incoming data
+// syntax for prop types is case sensitive and has to be camel case for declaration
+// & then pascal case for the "sub-defintion/assignment"
+Product.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    img: PropTypes.string,
+    price: PropTypes.number,
+    inCart: PropTypes.bool
+  }).isRequired
+};
 
 const ProductWrapper = styled.div`
 .card {
@@ -79,6 +94,28 @@ const ProductWrapper = styled.div`
 .card-img-top {
   transition: all 0.5s linear;
 }
+.cart-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0.2rem 0.4rem;
+  background: var(--lightBlue);
+  color: var(--mainWhite);
+  border: none;
+  font-size: 1.4rem;
+  border-radius: 0.5rem 0 0 0;
+  transform: translate(100%,100%);
+}
+
+.image-container:hover .cart-btn{
+    transform: translate(0,0);
+    transition: all 0.5s linear;
+}
+.cart-btn:hover {
+  color:var(--mainBlue);
+  cursor: pointer;
+}
+
 
 `
 
