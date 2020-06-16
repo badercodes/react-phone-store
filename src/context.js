@@ -20,6 +20,16 @@ class ProductProvider extends Component {
         console.log('The value of source array is',storeProducts);
         console.log('The value of copied array is', this.state.products);
     }
+
+    setProductsWayTwo = () => {
+        let tempProducts = [];
+        storeProducts.forEach((item)=>{
+            const tempItem = {...item};
+            tempProducts=[...tempProducts,tempItem];
+        })
+        this.setState (()=> ({products:tempProducts}));
+    }
+
     setProducts = () => {
         let y = [];
         for (let i =0 ; i < storeProducts.length; i++) {
@@ -33,7 +43,8 @@ class ProductProvider extends Component {
     }
 
     componentDidMount() {
-        this.setProducts();
+        // this.setProducts();
+        this.setProductsWayTwo();
     }
 
     render() {
