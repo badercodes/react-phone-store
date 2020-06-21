@@ -8,8 +8,18 @@ export default class Details extends Component {
         return (
           <ProductConsumer>
             { (value) => {
-                const {id, title, img, price, company, info, inCart} = value.details;
-               console.log(company);
+                const {id, title, img, price, company, info, inCart} = 
+                  value.details;
+               console.log(price);
+               return (
+                <div className="container py-5">
+                  {/* title */}
+                   <div className="row">
+                     
+                   </div>
+                   {/* end of title */}
+                </div>
+                )
               }
             }
 

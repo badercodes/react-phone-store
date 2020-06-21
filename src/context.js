@@ -49,8 +49,7 @@ class ProductProvider extends Component {
 
     render() {
         return (
-            <>
-            <button onClick={this.print}>Click Me</button>
+            
            <ProductContext.Provider value={{
                ...this.state,
                handleDetail : this.handleDetail,
@@ -59,7 +58,6 @@ class ProductProvider extends Component {
            }}>
                {this.props.children}
             </ProductContext.Provider>
-            </>
 
         )
     }
