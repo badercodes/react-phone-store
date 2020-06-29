@@ -10,23 +10,35 @@ export default class Product extends Component {
         return (
             <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
                 <div className="card">
-                    
-                {/* image-container is a custom class */}
-                  <div className="image-container p-5" onClick={()=> console.log(`hi from product`) }>
-                    <Link to="/details">
+                
+            <ProductConsumer> 
+
+                {
+                  (value) => {
+                    return (
+                      // product image container
+                      <div className="image-container p-5" onClick={()=> value.handleDetail(id) }>
+                       <Link to="/details">
                       {/* card-img-top from bootstrap to palce image in top section of card */}
                       <img src={img} alt="product" className="card-img-top"/>
-                    </Link>
-                   {/* cart-btn is a custom class  */}
-                   <button className="cart-btn" disabled={inCart ? true : false} 
-                  onClick={()=>console.log('Added to Cart')}> 
-                    {inCart ? (<p className="text-capitalize mb-0">in Cart</p>) 
-                    : (
-                      <i className="fas fa-cart-plus"></i>
-                      )}
-                  </button>
-                  </div>
-                 
+                     </Link>
+                    {/* cart-btn is a custom class  */}
+                    <button className="cart-btn" disabled={inCart ? true : false} 
+                    onClick={()=>value.addToCart(id)}> 
+                      {inCart ? (<p className="text-capitalize mb-0">in Cart</p>) 
+                      : (
+                        <i className="fas fa-cart-plus"></i>
+                        )}
+                    </button>
+                    </div>
+                          )
+                      
+                  }
+                } 
+            </ProductConsumer>  
+
+
+          
                   {/* This will be the card footer; card-footer, d-flex, and justify from bootstrap */}
                   <div className="card-footer d-flex justify-content-between">
                         {/* align from Bootstrap, used so that price stays on same line even though its font size is bigger */}
@@ -40,6 +52,7 @@ export default class Product extends Component {
                   </div>
                 </div>                
             </ProductWrapper>
+
         )
     }
 }

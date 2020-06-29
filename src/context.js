@@ -8,13 +8,31 @@ class ProductProvider extends Component {
     state = {
         products : [],
         details : detailProduct,
-        count: 7
+				cart : []
+			}
+    handleDetail = (id) => {
+				const product = this.getProduct(id);
+				this.setState( ()=> {
+					return {details: product}
+				});
     }
-    handleDetail = () => {
-        console.log("Hello from Details")
-    }
-    addToCart = () => {
-        console.log('Hello from add to cart')
+    addToCart = (id) => {
+				let tempProduct = [...this.state.products];
+				const index = tempProduct.indexOf(this.getProduct(id));
+				const product = tempProduct[index];
+				
+				// once I found the product, I will set incart to true and increment count
+				product.inCart = true;
+				product.count = 1
+
+				// setting price and totals (seems redundant to me)
+				const price = product.price;
+				product.total = price;
+
+				// adding the item to state
+				this.setState(()=>({products: tempProduct, cart: [...this.state.cart, product] }) , ()=> { console.log(this.state) } )
+
+        console.log(`hello id number ${id} added to card`)
     }
     print = ()=> {
         console.log('The value of source array is',storeProducts);
@@ -40,6 +58,11 @@ class ProductProvider extends Component {
             this.setState({products: y});
         }
         y[0].id = 100;
+    }
+
+    getProduct =(id) => {
+        const product =  this.state.products.find((item)=> item.id === id )
+        return product;
     }
 
     componentDidMount() {
