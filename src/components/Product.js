@@ -24,7 +24,14 @@ export default class Product extends Component {
                      </Link>
                     {/* cart-btn is a custom class  */}
                     <button className="cart-btn" disabled={inCart ? true : false} 
-                    onClick={()=>value.addToCart(id)}> 
+                    
+                    onClick={()=> {
+                      value.addToCart(id);
+                      value.openModal(id);
+                    }
+                    }
+                    
+                    > 
                       {inCart ? (<p className="text-capitalize mb-0">in Cart</p>) 
                       : (
                         <i className="fas fa-cart-plus"></i>
