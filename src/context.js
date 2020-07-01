@@ -72,14 +72,14 @@ class ProductProvider extends Component {
         this.setProductsWayTwo();
 		}
 		
-		openModal = id => {
+	openModal = id => {
 			const product = this.getProduct(id);
 			this.setState (() => {
 				return {modalOpen: true, modalProduct:product}
 			})
 		}
 
-		closeModal = () => {
+	closeModal = () => {
 			this.setState (
 				()=> {
 					return {modalOpen:false}
