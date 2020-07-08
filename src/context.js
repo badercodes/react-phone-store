@@ -8,12 +8,12 @@ class ProductProvider extends Component {
     state = {
         products : [],
         details : detailProduct,
-        cart : storeProducts,
+        cart : [],
         modalOpen : false,
         modalProduct: detailProduct,
-        cartSubtotal: 10,
-        cartTax:20,
-        cartTotal: 30
+        cartSubtotal: 0,
+        cartTax:0,
+        cartTotal: 0
             }
              
     handleDetail = (id) => {
@@ -29,14 +29,15 @@ class ProductProvider extends Component {
 				
 				// once I found the product, I will set incart to true and increment count
 				product.inCart = true;
-				product.count = 1
+				product.count = 1;
 
 				// setting price and totals (seems redundant to me)
 				const price = product.price;
 				product.total = price;
 
 				// adding the item to state
-				this.setState(()=>({products: tempProduct, cart: [...this.state.cart, product] }) , ()=> { console.log(this.state) } )
+                this.setState(()=>({products: tempProduct, cart: [...this.state.cart, product] }) ,
+                 ()=> { this.addTotals() } )
 
         console.log(`hello id number ${id} added to card`)
     }
@@ -105,6 +106,18 @@ class ProductProvider extends Component {
     
     clearCart = () => {
         console.log (`hello from clear cart`)
+    }
+    addTotals = () => {
+        let subTotal = 0;
+        this.state.cart.map(
+            (item) => subTotal = subTotal + item.total 
+        )
+        const tempTax = subTotal * 0.1;
+        const tax = parseFloat(tempTax.toFixed(2));
+        const total = subTotal + tax;
+        this.setState(
+            ()=>( {cartSubtotal: subTotal, cartTax : tax, cartTotal: total } )
+        )
     }
 
     render() {
