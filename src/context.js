@@ -101,10 +101,41 @@ class ProductProvider extends Component {
     }
     
     removeItem = (id) => {
-        console.log(`hello from remove item `)
+        let tempCart = [...this.state.cart];
+        let tempProducts = [...this.state.products];
+
+        tempCart = tempCart.filter( 
+            element => {
+                return (element.id !== id);
+            }
+        )
+        
+        const index = tempProducts.indexOf(this.getProduct(id))
+        let itemToBeRemoved = tempProducts[index];
+        
+        itemToBeRemoved.inCart = false
+        itemToBeRemoved.count = 0;
+        itemToBeRemoved.total = 0;
+
+        this.setState (
+            () => {
+                return {
+                    cart: [...tempCart], products: [...tempProducts]}
+            }, () => this.addTotals()
+        )
+        // I would find the item (array.find) in the cart array using ID 
+        // I would pop it
+        // setState or as is since its direct mutation
     }
     
     clearCart = () => {
+        this.setState(
+            () => ({cart: []}) ,
+            ()=> {
+                this.setProductsWayTwo();
+                this.addTotals();
+            }
+        );
         console.log (`hello from clear cart`)
     }
     addTotals = () => {
