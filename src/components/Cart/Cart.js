@@ -36,8 +36,6 @@ export default class Cart extends Component {
 
                 </ProductConsumer>
 
-
-
             </section>
         )
     }
