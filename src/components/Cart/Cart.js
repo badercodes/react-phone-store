@@ -20,7 +20,7 @@ export default class Cart extends Component {
                                 <CartColumns/>
                                 {/* Passing down value as a prop instead of using consumer */}
                                 <CartList value={value}/>
-                                <CartTotals value={value} />
+                                <CartTotals value={value} history={this.props.history} />
                                 </>
                             )
                         }
